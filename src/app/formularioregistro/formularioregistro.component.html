@@ -1,27 +1,29 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-12 col-md-8">
-      <form>
+      <form [formGroup]="formulario"  (ngSubmit)="analizarFormulario()">
         <div class="row">
           <div class="col-12">
-            <h4>Ingreso Mercancia</h4>
+            <h4>Ingreso Mercancia al Cuarto de Solucion</h4>
             <hr>
           </div>
         </div>
-        <div class="mb-3">
-          <label  class="form-label">IUP</label>
-          <input type="email" class="form-control" id="exampleInputEmail1">
-          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <div class=" mb-5">
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+                <i class="bi bi-box-seam-fill"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="IUP" formControlName="iup">
+          </div>
+          <div *ngIf="formulario.get('iup')?.touched && formulario.get('iup')?.errors?.['required']" class="form-text text-danger fw-bold">Este campo es obligatorio</div>
+          <div *ngIf="formulario.get('iup')?.touched && formulario.get('iup')?.errors?.['minlength']" class="form-text text-danger fw-bold">Este campo debe tener al menos 6 caractéres</div>
         </div>
 
         <div class="mb-3">
           <h4>Remitente</h4>
+          <hr>
           <label  class="form-label mb-2">Tipo de remitente: </label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>-</option>
-            <option value="1">Empresa</option>
-            <option value="2">Persona Natural</option>
-          </select>
+          <input type="text" class="form-control" placeholder="TipoRemitente" formControlName="tiporemitente"> 
         </div>
 
         <div class="mb-3">
@@ -30,7 +32,7 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
-                <input type="text" class="form-control" placeholder="Identificacion">
+                <input type="text" class="form-control" placeholder="Identificacion" formControlName="idremitente">
               </div>
 
             </div>
@@ -38,7 +40,7 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i> </span>
-                <input type="text" class="form-control" placeholder="Nombre">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombreremitente">
               </div>
 
             </div>
@@ -47,40 +49,27 @@
 
         <div class="mb-3">
           <div class="row">
-            <div class="col-6">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Departamento</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="col-6">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Municipio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
+              <div class="col-6">
+                  <input type="text" class="form-control" placeholder="departamento" formControlName="deptoremitente">
+              </div>
+              <div class="col-6">
+                  <input type="text" class="form-control" placeholder="municipio" formControlName="municipioremitente">
+              </div>
           </div>
         </div>
 
         <div class="mb-3">
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt"></i></span>
-            <input type="text" class="form-control" placeholder="Direccion" >
+            <input type="text" class="form-control" placeholder="Direccion" formControlName="direccionremitente" >
           </div>
         </div>
 
-        <div class="mb-3">
-          <h4>Destinatario</h4>
+        <div class="mb-2">
+          <h4 class="mt-5">Destinatario</h4>
+          <hr>
           <label  class="form-label mb-2">Tipo de destinatario: </label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>-</option>
-            <option value="1">Empresa</option>
-            <option value="2">Persona Natural</option>
-          </select>
+          <input type="text" class="form-control" placeholder="TipoDestinatario" formControlName="tipodestinatario">
         </div>
 
         <div class="mb-3">
@@ -89,7 +78,7 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
-                <input type="text" class="form-control" placeholder="Identificacion">
+                <input type="text" class="form-control" placeholder="Identificacion" formControlName="iddestinatario">
               </div>
 
             </div>
@@ -97,7 +86,7 @@
 
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i> </span>
-                <input type="text" class="form-control" placeholder="Nombre">
+                <input type="text" class="form-control" placeholder="Nombre" formControlName="nombredestinatario">
               </div>
 
             </div>
@@ -106,41 +95,36 @@
 
         <div class="mb-3">
           <div class="row">
-            <div class="col-6">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Departamento</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
-            <div class="col-6">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Municipio</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
+              <div class="col-6">
+                  <input type="text" class="form-control" placeholder="Departamento" formControlName="deptodestinatario">
+              </div>
+              <div class="col-6">
+                  <input type="text" class="form-control" placeholder="Municipio" formControlName="municipiodestinatario">
+              </div>
           </div>
-        </div>
+      </div>
 
         <div class="mb-3">
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1"><i class="bi bi-geo-alt"></i></span>
-            <input type="text" class="form-control" placeholder="Direccion" >
+            <input type="text" class="form-control" placeholder="Direccion"  formControlName="direcciondestinatario">
           </div>
         </div>
 
-        <label  class="form-label mb-2 mt-5">Zonas:</label>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
+        <div class="mb-3 mt-5">
+          <h4>Ubicación en cuarto</h4>
+          <hr>
+          <select class="form-select">
+              <option selected>Zona: </option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+          </select>
+      </div>
 
-        <button type="submit" class="btn btn-warning my-3">Registrar</button>
+        <div class="containerregistrar">
+          <button type="submit" class="btn btn-warning my-4 w-50 ">Registrar</button>
+        </div>
 
       </form>
     </div>
