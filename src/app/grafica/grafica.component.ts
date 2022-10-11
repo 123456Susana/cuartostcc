@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Color,ScaleType,LegendPosition} from '@swimlane/ngx-charts'
+import { ZonasService } from '../services/zonas.service';
 
 @Component({
   selector: 'app-grafica',
@@ -7,24 +8,8 @@ import {Color,ScaleType,LegendPosition} from '@swimlane/ngx-charts'
   styleUrls: ['./grafica.component.css']
 })
 export class GraficaComponent {
-  single = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    },
-      {
-      "name": "UK",
-      "value": 6200000
-    }
-  ];
+  
+
   view: [number,number] = [700, 400];
 
   // options
@@ -41,8 +26,18 @@ export class GraficaComponent {
     domain: ['#A93226 ', '#F4D03F', '#AAB7B8', '#212F3D']
   };
 
-  constructor() {
-    //Object.assign(this, { single });
+  disponibilidad:any[]=[]
+  constructor(public servicioZonas:ZonasService) {
+    this.servicioZonas.consultarZonas()
+    .subscribe(respuesta=>{
+      this.disponibilidad=respuesta.map((zona:any)=>{
+      return{name:zona.nombre,value:zona.disponible}
+    })
+  })
+  }
+
+  get single(){
+    return this.disponibilidad
   }
 
   onSelect(data:any): void {

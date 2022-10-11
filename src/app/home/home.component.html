@@ -23,7 +23,7 @@
                 <h2 class="text-center text-muted">{{mercancia.nombre}}</h2>
                 <h3 class="text-center text-muted"> volumen ocupado: {{mercancia.volumen}} u3</h3>
                 <h2 class="text-center text-muted">IUP: {{mercancia.iup}}</h2>
-                <button class="btn btn-primary m-2" type="button">Retirar del cuarto</button>
+                <button (click)="retirarMercancia(mercancia.iup)" class="btn btn-primary m-2" type="button">Retirar del cuarto</button>
               </div>
 
             </div>

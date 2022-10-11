@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormBuilder,Validators} from '@angular/forms'
+import { VirtualTimeScheduler } from 'rxjs';
 import { MercanciasService } from '../services/mercancias.service';
 import { ZonasService } from '../services/zonas.service';
 
@@ -25,13 +26,22 @@ export class FormularioregistroComponent implements OnInit {
     this.servicioZonas.consultarZonas()
     .subscribe(respuesta=>{
       this.datosZonas=respuesta.map((zona:any)=>{
-        return {id:zona.id}
+        return {nombre:zona.nombre,id:zona.id}
       })
     })
   }
 
   public analizarFormulario():void{
-    console.log(this.formulario.value)
+    let datosDeMercancia=this.formulario.value
+    datosDeMercancia.volumen=10
+    datosDeMercancia.nombre="MERCANCIA DE PRUEBA"
+    datosDeMercancia.zona={id:this.formulario.value.zona}
+
+    this.servicioMercancias.ingresarMercancia(datosDeMercancia)
+    .subscribe(respuesta=>{
+      console.log(respuesta)
+      window.location.reload()
+    })
   }
 
   public inicializarFormulario():FormGroup{
@@ -49,6 +59,7 @@ export class FormularioregistroComponent implements OnInit {
       deptodestinatario:['',[Validators.required]],
       municipiodestinatario:['',[Validators.required]],
       direcciondestinatario:['',[Validators.required]],
+      zona:['1',[Validators.required]]
     })
   }
 
@@ -82,7 +93,7 @@ export class FormularioregistroComponent implements OnInit {
         console.log(error.error)
         this.formulario.enable(),
         this.controlDeZona=true
-        this.formulario=this.inicializarFormulario()
+       // this.formulario=this.inicializarFormulario()
       }
 
       )

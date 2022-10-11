@@ -114,10 +114,8 @@
         <div class="mb-3 mt-5">
           <h4>Ubicación en cuarto</h4>
           <hr>
-          <select class="form-select" *ngIf="controlDeZona">
-              <option selected>Seleccione una Zona: </option>
-              <option value="" *ngFor="let zona of datosZonas">{{zona.id}}</option>
-
+          <select class="form-select" *ngIf="controlDeZona" formControlName="zona">
+              <option value={{zona.id}} *ngFor="let zona of datosZonas">{{zona.nombre}}</option>
           </select>
       </div>
 
